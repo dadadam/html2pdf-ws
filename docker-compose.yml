@@ -1,6 +1,6 @@
 version: "2"
 services:
   usn_frontend:
-    image: "bcgovimages/weasyprint:latest"
+    image: "html2pdf"
     ports:
       - "5001:5001"
