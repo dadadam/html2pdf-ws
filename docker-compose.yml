@@ -1,6 +1,6 @@
 version: "2"
 services:
   usn_frontend:
-    image: "html2pdf"
+    image: "html2pdf:latest"
     ports:
       - "5001:5001"

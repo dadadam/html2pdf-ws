@@ -11,11 +11,14 @@ RUN apt-get update -y\
     && apt-get autoremove -y \
     && apt-get clean
 
+RUN addgroup --system weasy \
+    && adduser --system --ingroup weasy weasy
+
 RUN mkdir /app
 WORKDIR /code
 
-COPY app.py .
-COPY requirements.txt .
+COPY --chown=weasy:weasy app.py .
+COPY --chown=weasy:weasy requirements.txt .
 
 RUN pip3 install -r requirements.txt
 
