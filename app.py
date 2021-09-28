@@ -5,8 +5,12 @@ import logging
 
 from flask import Flask, request, make_response
 from weasyprint import HTML
+from weasyprint.fonts import FontConfiguration
+
 
 app = Flask('pdf')
+
+font_config = FontConfiguration()
 
 @app.route('/health')
 def index():
@@ -49,7 +53,7 @@ def generate():
     name = request.args.get('filename', 'response.pdf')
     app.logger.info('POST  /pdf?filename=%s' % name)
     html = HTML(string=request.get_data())
-    pdf = html.write_pdf()
+    pdf = html.write_pdf(font_config=font_config)
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline;filename=%s' % name
@@ -62,7 +66,7 @@ def multiple():
     name = request.args.get('filename', 'unnamed.pdf')
     app.logger.info('POST  /multiple?filename=%s' % name)
     htmls = json.loads(request.data.decode('utf-8'))
-    documents = [HTML(string=html).render() for html in htmls]
+    documents = [HTML(string=html).render(font_config=font_config) for html in htmls]
     pdf = documents[0].copy([page for doc in documents for page in doc.pages]).write_pdf()
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
