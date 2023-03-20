@@ -1,6 +1,6 @@
 Brotli==1.0.9
 cairocffi==1.2.0
-CairoSVG==2.5.2
+CairoSVG==2.7.0
 cffi==1.14.6
 click==8.0.1
 cssselect2==0.4.1
