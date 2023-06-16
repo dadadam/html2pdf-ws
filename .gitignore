@@ -1,4 +1,5 @@
 venv/
+.venv/
 fonts/
 .vscode
 .DS_Store
